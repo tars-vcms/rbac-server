@@ -1,0 +1,92 @@
+module vcms
+{
+
+    struct AccessAbilityRsp{
+        0 require string Ident;
+        1 require string Name;
+        2 require string AccessList;
+        3 require string Comment;
+	};
+
+	struct IsValidAccessReq{
+        0 require string AccessIdent;
+        1 require string RoleIdent;
+    };
+
+    struct AccessPointInfo{
+        0 require int    AccessId
+        1 require string AccessIdent;
+        2 require string Comment;
+    };
+
+	interface RbacServer
+	{
+        int GetAccessAbilityByIdent(string req, out AccessAbilityRsp rsp);
+        int GetAccessPointInfo(int reqAccessPointId, out AccessPointInfoRsp rsp);
+        int IsValidAccess(IsValidAccessReq req, out Bool rsp);
+	};
+
+    struct CreateAccessPointReq{
+        0 require string AccessIdent;
+        1 require string Comment;
+    };
+
+    struct PageLimiter{
+        0 require int PageSize;
+        1 require int Offset;
+    };
+
+    struct AccessPointWhereCondition{
+        0 optional int AccessId;
+        1 optional string AccessIdent;
+    };
+
+    struct GetAccessPointsReq{
+        0 require AccessPointWhereCondition WhereCondition;
+        1 require PageLimiter Limit;
+    };
+
+	interface AccessPointOperate
+    {
+        int CreateAccessPoint(CreateAccessPointReq req, out string rsp);
+        int GetAccessPoints(GetAccessPointsReq req, out vector<AccessPointInfo> rsp);
+        int UpdateAccessPoint(AccessPointInfo req, out string rsp);
+        int DeleteAccessPoint(AccessPointInfo req, out string rsp);
+    };
+
+    struct CreateAccessRoleReq{
+        0 require string RoleIdent;
+        1 require string RoleName;
+        2 require string Access;
+        3 require string Comment;
+    };
+
+    struct AccessRoleInfo{
+        0 require int RoleId;
+        1 require string RoleIdent;
+        2 require string RoleName;
+        3 require string Access;
+        4 require string Comment;
+     };
+
+    struct AccessRoleWhereCondition{
+        0 optional int RoleId;
+        1 optional string RoleIdent;
+        2 optional string RoleName;
+        3 optional string Access;
+        4 optional string Comment;
+    };
+
+    struct GetAccessRoleReq{
+        0 require AccessRoleWhereCondition WhereCondition;
+        1 require PageLimiter Limit;
+    };
+
+    interface AccessRoleOperate
+    {
+        int CreateAccessRole(AccessRoleOperate req, out string rsp);
+        int GetAccessRole(GetAccessRoleReq req, out vector<AccessRoleInfo> rsp);
+        int UpdateAccessRole(AccessRoleInfo req, out string rsp);
+        int DeleteAccessRole(AccessRoleInfo req, out string rsp);
+    };
+};
