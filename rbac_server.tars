@@ -14,7 +14,7 @@ module vcms
     };
 
     struct AccessPointInfo{
-        0 require int    AccessId
+        0 require int    AccessId;
         1 require string AccessIdent;
         2 require string Comment;
     };
@@ -22,8 +22,8 @@ module vcms
 	interface RbacServer
 	{
         int GetAccessAbilityByIdent(string req, out AccessAbilityRsp rsp);
-        int GetAccessPointInfo(int reqAccessPointId, out AccessPointInfoRsp rsp);
-        int IsValidAccess(IsValidAccessReq req, out Bool rsp);
+        int GetAccessPointInfo(int reqAccessPointId, out AccessPointInfo rsp);
+        int IsValidAccess(IsValidAccessReq req, out bool rsp);
 	};
 
     struct CreateAccessPointReq{
@@ -84,7 +84,7 @@ module vcms
 
     interface AccessRoleOperate
     {
-        int CreateAccessRole(AccessRoleOperate req, out string rsp);
+        int CreateAccessRole(CreateAccessRoleReq req, out string rsp);
         int GetAccessRole(GetAccessRoleReq req, out vector<AccessRoleInfo> rsp);
         int UpdateAccessRole(AccessRoleInfo req, out string rsp);
         int DeleteAccessRole(AccessRoleInfo req, out string rsp);
