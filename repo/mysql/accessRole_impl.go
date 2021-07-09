@@ -50,7 +50,36 @@ func (*accessRole) Read(_where string, _pageSize int, _offset int)([]AccessRoleM
 	}else{
 		return thisAccessRole, int(result.RowsAffected), nil
 	}
+}
 
+func (*accessRole) FindByIdent(_ident string)(AccessRoleModel, int, error){
+	var thisAccessRole AccessRoleModel
+	result := db.Where("ident = ?", _ident).First(&thisAccessRole)
+	if result.Error != nil {
+		return thisAccessRole, 0, result.Error
+	}else{
+		return thisAccessRole, int(result.RowsAffected), nil
+	}
+}
+
+func (*accessRole) HaveAccessPointId(_id int, _aID int)(bool, int, error){
+	var thisAccessRole AccessRoleModel
+	result := db.Where("id = ? AND find_in_set(?, access)", _id, _aID).First(&thisAccessRole)
+	if result.Error != nil || int(result.RowsAffected) == 0{
+		return false, 0, result.Error
+	}else{
+		return true, int(result.RowsAffected), nil
+	}
+}
+
+func (*accessRole) Find(_id int)(AccessRoleModel, int, error){
+	var thisAccessRole AccessRoleModel
+	result := db.First(&thisAccessRole, _id)
+	if result.Error != nil {
+		return thisAccessRole, 0, result.Error
+	}else{
+		return thisAccessRole, int(result.RowsAffected), nil
+	}
 }
 
 func (*accessRole) Delete(_id int)(AccessRoleModel, int, error){

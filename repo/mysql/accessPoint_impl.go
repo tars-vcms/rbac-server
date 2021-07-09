@@ -49,6 +49,26 @@ func (*accessPoint) Read(_where string, _pageSize int, _offset int)([]AccessPoin
 
 }
 
+func (*accessPoint) FindByIdent(_ident string)(AccessPointModel, int, error){
+	var thisAccessPoint AccessPointModel
+	result := db.Where("ident = ?", _ident).First(&thisAccessPoint)
+	if result.Error != nil {
+		return thisAccessPoint, 0, result.Error
+	}else{
+		return thisAccessPoint, int(result.RowsAffected), nil
+	}
+}
+func (*accessPoint) Find(_id int)(AccessPointModel, int, error){
+	var thisAccessPoint AccessPointModel
+	result := db.First(&thisAccessPoint, _id)
+	if result.Error != nil {
+
+		return thisAccessPoint, 0, result.Error
+	}else{
+		return thisAccessPoint, int(result.RowsAffected), nil
+	}
+}
+
 func (*accessPoint) Delete(_id int)(AccessPointModel, int, error){
 	result := db.Delete(&AccessPointModel{}, _id)
 	if result.Error != nil {
