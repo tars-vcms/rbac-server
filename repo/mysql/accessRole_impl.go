@@ -64,7 +64,7 @@ func (*accessRole) FindByIdent(_ident string)(AccessRoleModel, int, error){
 
 func (*accessRole) HaveAccessPointId(_id int, _aID int)(bool, int, error){
 	var thisAccessRole AccessRoleModel
-	result := db.Where("id = ? AND find_in_set(?, access)", _id, _aID).First(&thisAccessRole)
+	result := db.Where("`id` = ? AND find_in_set(?, `access`)", _id, _aID).First(&thisAccessRole)
 	if result.Error != nil || int(result.RowsAffected) == 0{
 		return false, 0, result.Error
 	}else{

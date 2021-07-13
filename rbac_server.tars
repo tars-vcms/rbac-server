@@ -48,10 +48,10 @@ module vcms
 
 	interface AccessPointOperate
     {
-        int CreateAccessPoint(CreateAccessPointReq req, out string rsp);
+        int CreateAccessPoint(CreateAccessPointReq req, out AccessPointInfo rsp);
         int GetAccessPoints(GetAccessPointsReq req, out vector<AccessPointInfo> rsp);
-        int UpdateAccessPoint(AccessPointInfo req, out string rsp);
-        int DeleteAccessPoint(AccessPointInfo req, out string rsp);
+        int UpdateAccessPoint(AccessPointInfo req, out AccessPointInfo rsp);
+        int DeleteAccessPoint(AccessPointInfo req, out AccessPointInfo rsp);
     };
 
     struct CreateAccessRoleReq{
@@ -70,11 +70,11 @@ module vcms
      };
 
     struct AccessRoleWhereCondition{
-        0 optional int RoleId;
-        1 optional string RoleIdent;
-        2 optional string RoleName;
-        3 optional string Access;
-        4 optional string Comment;
+        0 require int RoleId;
+        1 require string RoleIdent;
+        2 require string RoleName;
+        3 require string Access;
+        4 require string Comment;
     };
 
     struct GetAccessRoleReq{
@@ -84,9 +84,9 @@ module vcms
 
     interface AccessRoleOperate
     {
-        int CreateAccessRole(CreateAccessRoleReq req, out string rsp);
+        int CreateAccessRole(CreateAccessRoleReq req, out AccessRoleInfo rsp);
         int GetAccessRole(GetAccessRoleReq req, out vector<AccessRoleInfo> rsp);
-        int UpdateAccessRole(AccessRoleInfo req, out string rsp);
-        int DeleteAccessRole(AccessRoleInfo req, out string rsp);
+        int UpdateAccessRole(AccessRoleInfo req, out AccessRoleInfo rsp);
+        int DeleteAccessRole(AccessRoleInfo req, out AccessRoleInfo rsp);
     };
 };

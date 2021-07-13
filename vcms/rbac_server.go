@@ -1050,27 +1050,27 @@ func (st *AccessRoleWhereCondition) ReadFrom(_is *codec.Reader) error {
 	var ty byte
 	st.ResetDefault()
 
-	err = _is.Read_int32(&st.RoleId, 0, true)
+	err = _is.Read_int32(&st.RoleId, 0, false)
 	if err != nil {
 		return err
 	}
 
-	err = _is.Read_string(&st.RoleIdent, 1, true)
+	err = _is.Read_string(&st.RoleIdent, 1, false)
 	if err != nil {
 		return err
 	}
 
-	err = _is.Read_string(&st.RoleName, 2, true)
+	err = _is.Read_string(&st.RoleName, 2, false)
 	if err != nil {
 		return err
 	}
 
-	err = _is.Read_string(&st.Access, 3, true)
+	err = _is.Read_string(&st.Access, 3, false)
 	if err != nil {
 		return err
 	}
 
-	err = _is.Read_string(&st.Comment, 4, true)
+	err = _is.Read_string(&st.Comment, 4, false)
 	if err != nil {
 		return err
 	}
