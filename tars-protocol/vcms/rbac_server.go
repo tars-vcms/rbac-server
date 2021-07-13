@@ -565,6 +565,7 @@ func (st *PageLimiter) WriteBlock(_os *codec.Buffer, tag byte) error {
 type AccessPointWhereCondition struct {
 	AccessId    int32  `json:"AccessId"`
 	AccessIdent string `json:"AccessIdent"`
+	Comment     string `json:"Comment"`
 }
 
 func (st *AccessPointWhereCondition) ResetDefault() {
@@ -584,6 +585,11 @@ func (st *AccessPointWhereCondition) ReadFrom(_is *codec.Reader) error {
 	}
 
 	err = _is.Read_string(&st.AccessIdent, 1, false)
+	if err != nil {
+		return err
+	}
+
+	err = _is.Read_string(&st.Comment, 2, true)
 	if err != nil {
 		return err
 	}
@@ -635,6 +641,11 @@ func (st *AccessPointWhereCondition) WriteTo(_os *codec.Buffer) error {
 	}
 
 	err = _os.Write_string(st.AccessIdent, 1)
+	if err != nil {
+		return err
+	}
+
+	err = _os.Write_string(st.Comment, 2)
 	if err != nil {
 		return err
 	}

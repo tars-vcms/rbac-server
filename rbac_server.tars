@@ -39,11 +39,13 @@ module vcms
     struct AccessPointWhereCondition{
         0 optional int AccessId;
         1 optional string AccessIdent;
+		2 require string Comment;
     };
 
     struct GetAccessPointsReq{
         0 require AccessPointWhereCondition WhereCondition;
         1 require PageLimiter Limit;
+
     };
 
 	interface AccessPointOperate
